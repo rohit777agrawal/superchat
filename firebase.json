@@ -3,6 +3,7 @@
     "source": "functions"
   },
   "hosting": {
+    "site": "agrawalrohit-superchat",
     "public": "public",
     "ignore": [
       "firebase.json",
