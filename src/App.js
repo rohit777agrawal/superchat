@@ -68,11 +68,6 @@ function ChatRoom(){
   const [messages] = useCollectionData(query, { idField: 'id' });
   const dummy = useRef();
 
-  let audio = new Audio(sound);
-  const start = () => {
-  audio.play()
-  }
-
   const [formValue, setFormValue] = useState('');
 
   const sendMessage = async(e) =>{
@@ -85,7 +80,6 @@ function ChatRoom(){
         photoURL
     });
     setFormValue('');
-    start();
     dummy.current.scrollIntoView({behavior:'smooth'});
   }
 
@@ -109,12 +103,17 @@ function ChatRoom(){
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
 
+  let audio = new Audio(sound);
+  const start = () => {
+  audio.play()
+  }
+
   // Comparing current user ID with Current user ID, to know 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
     <div className={`message ${messageClass}`}>
-      <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} alt=""/>
+      <img onLoad={start} src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} alt=""/>
       <p>{text}</p>
     </div>
   </>)
